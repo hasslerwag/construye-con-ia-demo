@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(poetry:*)",
+      "Bash(pytest:*)",
+      "Bash(ruff:*)",
+      "Bash(uvicorn:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git add:*)",
+      "Bash(git log:*)",
+      "Bash(curl:*)",
+      "Bash(docker compose:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "python3 .claude/hooks/block_prod.py" },
+          { "type": "command", "command": "python3 .claude/hooks/scan_secrets.py" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          { "type": "command", "command": "python3 .claude/hooks/format_on_edit.py" }
+        ]
+      }
+    ]
+  }
+}

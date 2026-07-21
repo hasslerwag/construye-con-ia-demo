@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<form
+  class="new-task"
+  hx-post="/tasks"
+  hx-target="#task-list"
+  hx-swap="outerHTML"
+  hx-on::after-request="this.reset()"
+>
+  <input type="text" name="title" placeholder="Nueva tarea…" required autofocus />
+  <button type="submit">Agregar</button>
+</form>
+
+{% include "_task_list.html" %}
+{% endblock %}

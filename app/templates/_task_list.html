@@ -1,0 +1,19 @@
+<ul id="task-list" class="task-list">
+  {% for task in tasks %}
+  <li class="task {{ task.status }}">
+    <button
+      class="toggle"
+      title="Marcar como {{ 'pendiente' if task.status == 'done' else 'hecha' }}"
+      hx-post="/tasks/{{ task.id }}/toggle"
+      hx-target="#task-list"
+      hx-swap="outerHTML"
+    >
+      {% if task.status == 'done' %}✓{% else %}○{% endif %}
+    </button>
+    <span class="title">{{ task.title }}</span>
+    <span class="status">{{ task.status }}</span>
+  </li>
+  {% else %}
+  <li class="empty">No hay tareas todavía.</li>
+  {% endfor %}
+</ul>

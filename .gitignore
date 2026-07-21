@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# App data / local env
+*.db
+.env
+
+# Claude Code local overrides
+.claude/settings.local.json
+
+# Course materials (kept out of the demo repo)
+*.docx
+*.pdf
+
+# OS
+.DS_Store

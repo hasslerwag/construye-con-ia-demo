@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount source so uvicorn --reload picks up live edits during the demo.
+      - ./app:/app/app
+    environment:
+      - TASKS_DB=/app/tasks.db
