@@ -15,17 +15,27 @@ docker compose up --build
 Abre http://localhost:8000. El código de `app/` está montado como volumen, así que al
 editar un archivo `uvicorn --reload` recarga solo — refresca el navegador y ves el cambio.
 
-## Correr nativo con Poetry
+## Correr nativo con Poetry (Makefile)
 ```bash
-poetry install
-poetry run uvicorn app.main:app --reload
+make install   # poetry install
+make run       # uvicorn --reload en http://localhost:8000
+make test      # pytest
+make cov       # pytest con cobertura
 ```
+Los targets del `Makefile` envuelven Poetry y aplican un workaround de macOS (ver abajo).
+
+> **macOS / Apple Silicon:** con Python 3.12 de Homebrew, `poetry`/`pytest` pueden fallar con
+> `Symbol not found: _XML_SetAllocTrackerActivationThreshold` (libexpat del sistema muy vieja).
+> Solución: `brew install expat`. El `Makefile` ya prefija los comandos con
+> `DYLD_LIBRARY_PATH=/opt/homebrew/opt/expat/lib` cuando ese directorio existe (no-op en otras
+> máquinas). Si corres poetry a mano, usa el mismo prefijo. Innecesario en macOS 26.3+.
+
 > Nota: en Python 3.13+ algunas dependencias aún no traen wheels; usa 3.11–3.12 (por ejemplo
 > con `pyenv`) o el camino de Docker.
 
 ## Tests
 ```bash
-poetry run pytest --cov=app --cov-report=term-missing
+make test        # o: DYLD_LIBRARY_PATH=/opt/homebrew/opt/expat/lib poetry run pytest
 ```
 
 ## Qué mirar (mapa del repo)
