@@ -12,7 +12,7 @@ CREATE TABLE libro (
     codigo     BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nombre     TEXT           NOT NULL,
     precio     NUMERIC(12, 2) NOT NULL,
-    n_paginas  INTEGER,
+    nn_paginas  INTEGER,
     -- FK del lado "N": cada libro pertenece a un usuario (1:N)
     usuario_id BIGINT         NOT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuario (id)
